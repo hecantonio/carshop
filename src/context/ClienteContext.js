@@ -1,0 +1,20 @@
+import { createContext, useContext, useReducer } from "react";
+import { clienteReducer, initialState } from "./clienteReducer";
+
+export const ClienteContext = createContext();
+
+export const ClienteAppContext = ({ children }) => {
+
+    const [state, dispatch] = useReducer(clienteReducer, initialState);
+
+    return (
+        <ClienteAppContext.Provider value={{ state, dispatch }}>
+            {children}
+        </ClienteAppContext.Provider>
+    )
+
+}
+
+export const useClienteContext = () => {
+    return useContext(ClienteContext);
+}
