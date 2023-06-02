@@ -1,6 +1,6 @@
 
 export const initialState = {
-    clientes: [],
+    cliente: {},
 }
 
 export const clienteReducer = (state = initialState, action) => {
@@ -9,16 +9,9 @@ export const clienteReducer = (state = initialState, action) => {
         case 'add':
             return {
                 ...state,
-                clientes: [action.payload, ...state.clientes]
+                cliente: action.payload,
             }
-        case 'update':
-            return {
-                ...state,
-                clientes: state.clientes.map(cliente => {
-                    return cliente.id === action.payload.id ? action.payload.cliente : cliente;
-                })
-            }
-        case 'load':
+        case 'select':
             return {
                 ...state,
             }

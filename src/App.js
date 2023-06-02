@@ -1,9 +1,12 @@
 import { AddCliente } from './components/AddCliente';
+import { ClienteAppContext } from './context/ClienteContext';
 
 function App() {
   return (
-    <div className="App">
-      <AddCliente />
+    <div class="container">
+      <ClienteAppContext>
+        <AddCliente />
+      </ClienteAppContext>
     </div>
   );
 }

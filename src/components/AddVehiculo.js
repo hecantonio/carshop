@@ -4,7 +4,7 @@ import { useClienteContext } from '../context/ClienteContext';
 
 let id = 1;
 
-export const AddCliente = () => {
+export const AddVehiculo = () => {
 
     const { state, dispatch } = useClienteContext();
 
