@@ -1,12 +1,13 @@
-import { AddCliente } from './components/AddCliente';
-import { ClienteAppContext } from './context/ClienteContext';
+import { UiAppContext } from './context/UiContext';
+import { AppRouter } from './router/AppRouter';
 
 function App() {
+
   return (
-    <div class="container">
-      <ClienteAppContext>
-        <AddCliente />
-      </ClienteAppContext>
+    <div className="container">
+      <UiAppContext>
+        <AppRouter />
+      </UiAppContext>
     </div>
   );
 }

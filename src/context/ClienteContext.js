@@ -5,10 +5,10 @@ export const ClienteContext = createContext({});
 
 export const ClienteAppContext = ({ children }) => {
 
-    const [state, dispatch] = useReducer(clienteReducer, initialState);
+    const [cliente, dispatch] = useReducer(clienteReducer, initialState);
 
     return (
-        <ClienteContext.Provider value={{ state, dispatch }}>
+        <ClienteContext.Provider value={{ cliente, dispatch }}>
             {children}
         </ClienteContext.Provider>
     )

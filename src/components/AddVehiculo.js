@@ -1,110 +1,152 @@
 import React from 'react'
 import { useForm } from '../hooks/useForm'
+import { useVehiculoContext } from '../context/VehiculoContext';
 import { useClienteContext } from '../context/ClienteContext';
+import { useUiContext } from '../context/UiContext';
 
-let id = 1;
 
 export const AddVehiculo = () => {
 
-    const { state, dispatch } = useClienteContext();
+    const { vehiculo, dispatch } = useVehiculoContext();
+    const { cliente: {activo: { identificacion, nombre }} } = useClienteContext();
+    const { dispatch: dispatchUi } = useUiContext();
 
     const [formValues, handleInputChange, reset] = useForm({
-        tipoIdentificacion: '',
-        identificacion: '',
-        nombre: '',
-        email: '',
-        telefono: '',
+        identificacion,
+        placa: '',
+        marca: '',
+        modelo: '',
+        nivelTanque: '',
+        observaciones: '',
     });
 
-    const { nombre, email, telefono, tipoIdentificacion, identificacion } = formValues;
+    const { placa, marca, modelo, nivelTanque, observaciones } = formValues;
 
     const handleGuardar = () => {
         dispatch({
             type: 'add',
-            payload: {
-                id: id++,
-                ...formValues
-            },
+            payload: formValues,
         });
         reset();
+        dispatchUi({
+            type: 'setNext',
+            payload: 'Servicios',
+        })
+    }
+
+    const handleRegresar = () => {
+        dispatchUi({
+            type: 'setNext',
+            payload: '',
+        })
     }
 
     return (
-        <div class="card">
-            <div class="card-header fw-bold">
-                Añadir cliente
+        <div className="card">
+            <div className="card-header fw-bold">
+                Datos del vehículo
             </div>
-            <div class="card-body">
+            <div className="card-body">
                 <div className="mb-3 row">
-                    <label for="tipoIdentificacion" className="col-sm-2 col-form-label fw-semibold">Tipo identificación: </label>
-                    <div className="col-sm-10">
-                        <select className="form-select" aria-label="Default select example" id="tipoIdentificacion" name="tipoIdentificacion" onChange={handleInputChange} value={tipoIdentificacion}>
-                            <option selected>- Seleccionar -</option>
-                            <option value="C">Cédula</option>
-                            <option value="R">RUC</option>
-                            <option value="P">Pasaporte</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="mb-3 row">
-                    <label for="identificacion" className="col-sm-2 col-form-label fw-semibold">Identificación:</label>
+                    <label htmlFor="nombreTitular" className="col-sm-2 col-form-label fw-semibold">Nombre propietario:</label>
                     <div className="col-sm-10">
                         <input
                             type="text"
                             className="form-control"
-                            id="identificacion"
-                            name="identificacion"
-                            value={identificacion}
-                            onChange={handleInputChange}
-                        /> </div>
-                </div>
-                <div className="mb-3 row">
-                    <label for="nombre" className="col-sm-2 col-form-label fw-semibold">Nombres completos:</label>
-                    <div className="col-sm-10">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="nombre"
-                            name="nombre"
+                            id="nombreTitular"
+                            name="nombreTitular"
                             value={nombre}
-                            onChange={handleInputChange}
+                            disabled={true}
                         /> </div>
                 </div>
                 <div className="mb-3 row">
-                    <label for="email" className="col-sm-2 col-form-label fw-semibold">Email:</label>
-                    <div className="col-sm-10">
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={handleInputChange}
-                        /> </div>
-                </div>
-                <div className="mb-3 row">
-                    <label for="telefono" className="col-sm-2 col-form-label fw-semibold">Teléfono:</label>
+                    <label htmlFor="placa" className="col-sm-2 col-form-label fw-semibold">Placa:</label>
                     <div className="col-sm-10">
                         <input
                             type="text"
                             className="form-control"
-                            id="telefono"
-                            name="telefono"
-                            value={telefono}
+                            id="placa"
+                            name="placa"
+                            value={placa}
+                            onChange={handleInputChange}
+                        /> </div>
+                </div>
+                <div className="mb-3 row">
+                    <label htmlFor="marca" className="col-sm-2 col-form-label fw-semibold">Marca:</label>
+                    <div className="col-sm-10">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="marca"
+                            name="marca"
+                            value={marca}
+                            onChange={handleInputChange}
+                        /> </div>
+                </div>
+                <div className="mb-3 row">
+                    <label htmlFor="modelo" className="col-sm-2 col-form-label fw-semibold">Modelo:</label>
+                    <div className="col-sm-10">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="modelo"
+                            name="modelo"
+                            value={modelo}
+                            onChange={handleInputChange}
+                        /> </div>
+                </div>
+                <div className="mb-3 row">
+                    <label htmlFor="nivelTanque" className="col-sm-2 col-form-label fw-semibold">Nivel tanque gasolina:</label>
+                    <div className="col-sm-10">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="nivelTanque"
+                            name="nivelTanque"
+                            value={nivelTanque}
+                            onChange={handleInputChange}
+                        /> </div>
+                </div>
+                <div className="mb-3 row">
+                    <label htmlFor="observaciones" className="col-sm-2 col-form-label fw-semibold">Obervaciones:</label>
+                    <div className="col-sm-10">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="observaciones"
+                            name="observaciones"
+                            value={observaciones}
                             onChange={handleInputChange}
                         /> </div>
                 </div>
                 {
-                    JSON.stringify(state, null, 10)
+                    JSON.stringify(vehiculo, null, 10)
                 }
             </div>
-            <div class="card-footer bg-transparent text-end">
+            <div className="card-footer bg-transparent text-end">
                 <button
-                    className="btn btn-primary"
-                    onClick={handleGuardar}
+                    className="btn btn-secondary me-2"
+                    onClick={handleRegresar}
                 >
-                    Guardar
-                </button>
+                    Atrás
+                </button>                
+                {
+                    (vehiculo && vehiculo.acivo) ? (
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleGuardar}
+                        >
+                            Continuar
+                        </button>
+                    ) : (
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleGuardar}
+                        >
+                            Guardar y continuar
+                        </button>
+                    )
+                }
             </div>
         </div>
     )

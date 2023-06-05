@@ -1,10 +1,10 @@
 
-export const initialState = {
+export const vehiculoInitialState = {
     lista: [],
     activo: {},
 }
 
-export const clienteReducer = (state = initialState, action) => {
+export const vehiculoReducer = (state = vehiculoInitialState, action) => {
 
     switch (action.type) {
         case 'add':
@@ -16,15 +16,15 @@ export const clienteReducer = (state = initialState, action) => {
         case 'update':
             return {
                 ...state,
-                lista: state.lista.map(cliente => {
-                    return cliente.identificacion === action.payload.identificacion ? action.payload : cliente;
+                lista: state.lista.map(vehiculo => {
+                    return vehiculo.placa === action.payload.identificacion ? action.payload : vehiculo;
                 }),
                 activo: action.payload,
             }
         case 'search':
             return {
                 ...state,
-                activo: state.lista.filter(e => e.identificacion === action.payload.identificacion)
+                activo: state.lista.filter(e => e.placa === action.payload.placa)
             }
         default:
             return state;

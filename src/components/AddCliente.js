@@ -1,12 +1,13 @@
 import React from 'react'
 import { useForm } from '../hooks/useForm'
 import { useClienteContext } from '../context/ClienteContext';
-
-let id = 1;
+import { useUiContext } from '../context/UiContext';
+import Swal from 'sweetalert2';
 
 export const AddCliente = () => {
 
-    const { state, dispatch } = useClienteContext();
+    const { cliente, dispatch } = useClienteContext();
+    const { dispatch: dispatchUi } = useUiContext();
 
     const [formValues, handleInputChange, reset] = useForm({
         tipoIdentificacion: '',
@@ -16,30 +17,42 @@ export const AddCliente = () => {
         telefono: '',
     });
 
-    const { nombre, email, telefono, tipoIdentificacion, identificacion } = formValues;
+    const {tipoIdentificacion, identificacion,  nombre, email, telefono } = formValues;
+
+    const handleBuscar = (event) => {
+        dispatch({
+            type: 'search',
+            payload: event.target.value,
+        })
+    }
 
     const handleGuardar = () => {
-        dispatch({
-            type: 'add',
-            payload: {
-                id: id++,
-                ...formValues
-            },
-        });
-        reset();
+        if(tipoIdentificacion !== '' && identificacion !== '' &&  nombre !== '' && email !== '' && telefono !== ''){
+            dispatch({
+                type: 'add',
+                payload: formValues,
+            });
+            reset();
+            dispatchUi({
+                type: 'setNext',
+                payload: 'Vehiculo',
+            })
+        }else{
+            Swal.fire('Todos los campos son obligatorios');
+        }        
     }
 
     return (
-        <div class="card">
-            <div class="card-header fw-bold">
-                Añadir cliente
+        <div className="card">
+            <div className="card-header fw-bold">
+                Datos del cliente
             </div>
-            <div class="card-body">
+            <div className="card-body">
                 <div className="mb-3 row">
-                    <label for="tipoIdentificacion" className="col-sm-2 col-form-label fw-semibold">Tipo identificación: </label>
+                    <label htmlFor="tipoIdentificacion" className="col-sm-2 col-form-label fw-semibold">Tipo identificación: </label>
                     <div className="col-sm-10">
                         <select className="form-select" aria-label="Default select example" id="tipoIdentificacion" name="tipoIdentificacion" onChange={handleInputChange} value={tipoIdentificacion}>
-                            <option selected>- Seleccionar -</option>
+                            <option value="">- Seleccionar -</option>
                             <option value="C">Cédula</option>
                             <option value="R">RUC</option>
                             <option value="P">Pasaporte</option>
@@ -47,7 +60,7 @@ export const AddCliente = () => {
                     </div>
                 </div>
                 <div className="mb-3 row">
-                    <label for="identificacion" className="col-sm-2 col-form-label fw-semibold">Identificación:</label>
+                    <label htmlFor="identificacion" className="col-sm-2 col-form-label fw-semibold">Identificación:</label>
                     <div className="col-sm-10">
                         <input
                             type="text"
@@ -56,10 +69,11 @@ export const AddCliente = () => {
                             name="identificacion"
                             value={identificacion}
                             onChange={handleInputChange}
-                        /> </div>
+                        />
+                    </div>
                 </div>
                 <div className="mb-3 row">
-                    <label for="nombre" className="col-sm-2 col-form-label fw-semibold">Nombres completos:</label>
+                    <label htmlFor="nombre" className="col-sm-2 col-form-label fw-semibold">Nombres completos:</label>
                     <div className="col-sm-10">
                         <input
                             type="text"
@@ -68,10 +82,11 @@ export const AddCliente = () => {
                             name="nombre"
                             value={nombre}
                             onChange={handleInputChange}
-                        /> </div>
+                        />
+                    </div>
                 </div>
                 <div className="mb-3 row">
-                    <label for="email" className="col-sm-2 col-form-label fw-semibold">Email:</label>
+                    <label htmlFor="email" className="col-sm-2 col-form-label fw-semibold">Email:</label>
                     <div className="col-sm-10">
                         <input
                             type="email"
@@ -80,10 +95,11 @@ export const AddCliente = () => {
                             name="email"
                             value={email}
                             onChange={handleInputChange}
-                        /> </div>
+                        />
+                    </div>
                 </div>
                 <div className="mb-3 row">
-                    <label for="telefono" className="col-sm-2 col-form-label fw-semibold">Teléfono:</label>
+                    <label htmlFor="telefono" className="col-sm-2 col-form-label fw-semibold">Teléfono:</label>
                     <div className="col-sm-10">
                         <input
                             type="text"
@@ -92,20 +108,33 @@ export const AddCliente = () => {
                             name="telefono"
                             value={telefono}
                             onChange={handleInputChange}
-                        /> </div>
+                        />
+                    </div>
                 </div>
                 {
-                    JSON.stringify(state, null, 10)
+                    JSON.stringify(cliente, null, 10)
                 }
             </div>
-            <div class="card-footer bg-transparent text-end">
-                <button
-                    className="btn btn-primary"
-                    onClick={handleGuardar}
-                >
-                    Guardar
-                </button>
+            <div className="card-footer bg-transparent text-end">
+                {
+                    (cliente && cliente.acivo) ? (
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleGuardar}
+                        >
+                            Continuar
+                        </button>
+                    ) : (
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleGuardar}
+                        >
+                            Guardar y continuar
+                        </button>
+                    )
+                }
             </div>
         </div>
     )
 }
+
