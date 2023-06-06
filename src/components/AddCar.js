@@ -127,7 +127,7 @@ export const AddCar = () => {
                     className="btn btn-primary"
                     onClick={handleGuardar}
                 >
-                    Guardar y continuar
+                    Continuar
                 </button>
             </div>
         </div>
