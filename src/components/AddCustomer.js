@@ -38,7 +38,7 @@ export const AddCustomer = () => {
 
     return (
         <div className="card">
-            <div className="card-header fw-bold">
+            <div className="card-header fs-4 fw-bold">
                 Datos del cliente
             </div>
             <div className="card-body">
@@ -106,7 +106,7 @@ export const AddCustomer = () => {
                     </div>
                 </div>
                 {
-                    JSON.stringify(carShop, null, 10)
+                    JSON.stringify(carShop)
                 }
             </div>
             <div className="card-footer bg-transparent text-end">

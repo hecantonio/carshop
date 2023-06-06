@@ -4,6 +4,7 @@ import { useUiContext } from '../context/UiContext';
 import { services } from '../helpers/services';
 import { useState } from 'react';
 import { useCarShopContext } from '../context/CarShopContext';
+import { addMinutesDate } from '../helpers/util';
 
 
 export const AddService = () => {
@@ -42,15 +43,14 @@ export const AddService = () => {
     };
 
     const handleGuardar = () => {
-        let hoy = new Date();
-        let ms = 1000 * 60 * 60 * duration;
-        let suma = hoy.getTime() + ms;
-        let endingTime = new Date(suma);
+        let deliveryTime = new Date();
+        let endTime = addMinutesDate(duration);
         dispatch({
             type: 'addMaintenance',
             payload: {
                 maintenance: checkService,
-                endingTime,
+                deliveryTime,
+                endTime,
                 duration: duration,
             },
         });
@@ -69,7 +69,7 @@ export const AddService = () => {
 
     return (
         <div className="card">
-            <div className="card-header fw-bold">
+            <div className="card-header fs-4 fw-bold">
                 Selección de servicios
             </div>
             <div className="card-body">

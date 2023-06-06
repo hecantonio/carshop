@@ -11,7 +11,7 @@ export const AddCar = () => {
 
     const { customer: { nombre } } = carShop;
 
-    const [formValues, handleInputChange, reset] = useForm(carShop.order.car);
+    const [formValues, handleInputChange, reset] = useForm(carShop.car);
 
     const { placa, marca, modelo, nivelTanque, observaciones } = formValues;
 
@@ -36,7 +36,7 @@ export const AddCar = () => {
 
     return (
         <div className="card">
-            <div className="card-header fw-bold">
+            <div className="card-header fs-4 fw-bold">
                 Datos del vehículo
             </div>
             <div className="card-body">

@@ -7,16 +7,17 @@ export const initialState = {
         email: '',
         telefono: '',
     },
-    order: {
-        car: {
-            placa: '',
-            marca: '',
-            modelo: '',
-            nivelTanque: '',
-            observaciones: '',
-        },
+    car: {
+        placa: '',
+        marca: '',
+        modelo: '',
+        nivelTanque: '',
+        observaciones: '',
+    },
+    order: {        
         maintenance: [],
-        endingTime: '',
+        deliveryTime: '',
+        endTime: '',
         duration: 0,
     },
 }
@@ -32,7 +33,7 @@ export const carShopReducer = (state = initialState, action) => {
         case 'addVehicle':
             return {
                 ...state,
-                order: { car: action.payload },
+                car: action.payload,
             }
         case 'addMaintenance':
             return {
@@ -40,7 +41,8 @@ export const carShopReducer = (state = initialState, action) => {
                 order: {
                     maintenance: action.payload.maintenance,
                     duration: action.payload.duration,
-                    endingTime: action.payload.endingTime,
+                    deliveryTime: action.payload.deliveryTime,
+                    endTime: action.payload.endTime,
                 }
             }
         case 'select':
