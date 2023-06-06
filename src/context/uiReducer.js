@@ -2,7 +2,7 @@
 export const uiInitialState = {
     loading: false,
     msgError: null,
-    next: ''
+    next: 1
 }
 
 

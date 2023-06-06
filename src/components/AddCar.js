@@ -1,43 +1,36 @@
 import React from 'react'
 import { useForm } from '../hooks/useForm'
-import { useVehiculoContext } from '../context/VehiculoContext';
-import { useClienteContext } from '../context/ClienteContext';
 import { useUiContext } from '../context/UiContext';
+import { useCarShopContext } from '../context/CarShopContext';
 
 
-export const AddVehiculo = () => {
+export const AddCar = () => {
 
-    const { vehiculo, dispatch } = useVehiculoContext();
-    const { cliente: {activo: { identificacion, nombre }} } = useClienteContext();
+    const { carShop, dispatch } = useCarShopContext();
     const { dispatch: dispatchUi } = useUiContext();
 
-    const [formValues, handleInputChange, reset] = useForm({
-        identificacion,
-        placa: '',
-        marca: '',
-        modelo: '',
-        nivelTanque: '',
-        observaciones: '',
-    });
+    const { customer: { nombre } } = carShop;
+
+    const [formValues, handleInputChange, reset] = useForm(carShop.order.car);
 
     const { placa, marca, modelo, nivelTanque, observaciones } = formValues;
 
     const handleGuardar = () => {
         dispatch({
-            type: 'add',
+            type: 'addVehicle',
             payload: formValues,
         });
         reset();
         dispatchUi({
             type: 'setNext',
-            payload: 'Servicios',
+            payload: 3,
         })
     }
 
     const handleRegresar = () => {
         dispatchUi({
             type: 'setNext',
-            payload: '',
+            payload: 1,
         })
     }
 
@@ -120,7 +113,7 @@ export const AddVehiculo = () => {
                         /> </div>
                 </div>
                 {
-                    JSON.stringify(vehiculo, null, 10)
+                    JSON.stringify(carShop, null, 10)
                 }
             </div>
             <div className="card-footer bg-transparent text-end">
@@ -129,24 +122,13 @@ export const AddVehiculo = () => {
                     onClick={handleRegresar}
                 >
                     Atrás
-                </button>                
-                {
-                    (vehiculo && vehiculo.acivo) ? (
-                        <button
-                            className="btn btn-primary"
-                            onClick={handleGuardar}
-                        >
-                            Continuar
-                        </button>
-                    ) : (
-                        <button
-                            className="btn btn-primary"
-                            onClick={handleGuardar}
-                        >
-                            Guardar y continuar
-                        </button>
-                    )
-                }
+                </button>
+                <button
+                    className="btn btn-primary"
+                    onClick={handleGuardar}
+                >
+                    Guardar y continuar
+                </button>
             </div>
         </div>
     )

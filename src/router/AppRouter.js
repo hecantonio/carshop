@@ -1,24 +1,22 @@
 import React from 'react'
 import { useUiContext } from '../context/UiContext';
-import { ClienteAppContext } from '../context/ClienteContext';
-import { VehiculoAppContext } from '../context/VehiculoContext';
-import { AddVehiculo } from '../components/AddVehiculo';
-import { AddCliente } from '../components/AddCliente';
+import { AddCar } from '../components/AddCar';
 import { AddService } from '../components/AddService';
 import { Title } from '../components/Title';
+import { CarShopAppContext } from '../context/CarShopContext';
+import { AddCustomer } from '../components/AddCustomer';
+import { Order } from '../components/Order.js';
 
 export const AppRouter = () => {
 
     const { ui } = useUiContext();
 
     return (
-        <ClienteAppContext>
-            <VehiculoAppContext>
-                <Title />
-                {
-                    (ui.next === 'Vehiculo') ? <AddVehiculo /> : (ui.next === 'Servicios') ? <AddService /> : <AddCliente />
-                }
-            </VehiculoAppContext>
-        </ClienteAppContext>
+        <CarShopAppContext>
+            <Title />
+            {
+                (ui.next === 1) ? <AddCustomer /> : (ui.next === 2) ? <AddCar /> : (ui.next === 3) ? <AddService /> : <Order />
+            }
+        </CarShopAppContext>
     )
 }

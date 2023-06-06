@@ -1,19 +1,21 @@
 import React from 'react'
 import { useForm } from '../hooks/useForm'
-import { useVehiculoContext } from '../context/VehiculoContext';
-import { useClienteContext } from '../context/ClienteContext';
 import { useUiContext } from '../context/UiContext';
 import { services } from '../helpers/services';
 import { useState } from 'react';
+import { useCarShopContext } from '../context/CarShopContext';
 
 
 export const AddService = () => {
 
+    const { carShop, dispatch } = useCarShopContext();
     const { dispatch: dispatchUi } = useUiContext();
 
     const [checkedState, setCheckedState] = useState(
         new Array(services.length).fill(false)
     );
+    const [checkService, setCheckService] = useState([]);
+    const [duration, setDuration] = useState();
 
     const handleOnChange = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
@@ -21,24 +23,47 @@ export const AddService = () => {
         );
 
         setCheckedState(updatedCheckedState);
+
+        let listService = [];
+        updatedCheckedState.map((e, i) => (e) && listService.push(services[i].name));
+
+        const totalDuration = updatedCheckedState.reduce(
+            (duration, currentState, index) => {
+                if (currentState === true) {
+                    return duration + services[index].duration;
+                }
+                return duration;
+            },
+            0
+        );
+
+        setCheckService(listService);
+        setDuration(totalDuration);
     };
 
     const handleGuardar = () => {
-        /*dispatch({
-            type: 'add',
-            payload: formValues,
+        let hoy = new Date();
+        let ms = 1000 * 60 * 60 * duration;
+        let suma = hoy.getTime() + ms;
+        let endingTime = new Date(suma);
+        dispatch({
+            type: 'addMaintenance',
+            payload: {
+                maintenance: checkService,
+                endingTime,
+                duration: duration,
+            },
         });
-        reset();
         dispatchUi({
             type: 'setNext',
-            payload: 'Servicios',
-        })*/
+            payload: 4,
+        })
     }
 
     const handleRegresar = () => {
         dispatchUi({
             type: 'setNext',
-            payload: 'Vehiculos',
+            payload: 2,
         });
     }
 
@@ -66,6 +91,9 @@ export const AddService = () => {
                             </div>
                         )
                     })
+                }
+                {
+                    JSON.stringify(carShop, null, 10)
                 }
             </div>
             <div className="card-footer bg-transparent text-end">

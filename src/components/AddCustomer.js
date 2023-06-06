@@ -1,23 +1,17 @@
 import React from 'react'
 import { useForm } from '../hooks/useForm'
-import { useClienteContext } from '../context/ClienteContext';
+import { useCarShopContext } from '../context/CarShopContext';
 import { useUiContext } from '../context/UiContext';
 import Swal from 'sweetalert2';
 
-export const AddCliente = () => {
+export const AddCustomer = () => {
 
-    const { cliente, dispatch } = useClienteContext();
+    const { carShop, dispatch } = useCarShopContext();
     const { dispatch: dispatchUi } = useUiContext();
 
-    const [formValues, handleInputChange, reset] = useForm({
-        tipoIdentificacion: '',
-        identificacion: '',
-        nombre: '',
-        email: '',
-        telefono: '',
-    });
+    const [formValues, handleInputChange, reset] = useForm(carShop.customer);
 
-    const {tipoIdentificacion, identificacion,  nombre, email, telefono } = formValues;
+    const { tipoIdentificacion, identificacion, nombre, email, telefono } = formValues;
 
     const handleBuscar = (event) => {
         dispatch({
@@ -27,19 +21,19 @@ export const AddCliente = () => {
     }
 
     const handleGuardar = () => {
-        if(tipoIdentificacion !== '' && identificacion !== '' &&  nombre !== '' && email !== '' && telefono !== ''){
+        if (tipoIdentificacion !== '' && identificacion !== '' && nombre !== '' && email !== '' && telefono !== '') {
             dispatch({
-                type: 'add',
+                type: 'addCustomer',
                 payload: formValues,
             });
             reset();
             dispatchUi({
                 type: 'setNext',
-                payload: 'Vehiculo',
+                payload: 2,
             })
-        }else{
+        } else {
             Swal.fire('Todos los campos son obligatorios');
-        }        
+        }
     }
 
     return (
@@ -112,27 +106,16 @@ export const AddCliente = () => {
                     </div>
                 </div>
                 {
-                    JSON.stringify(cliente, null, 10)
+                    JSON.stringify(carShop, null, 10)
                 }
             </div>
             <div className="card-footer bg-transparent text-end">
-                {
-                    (cliente && cliente.acivo) ? (
-                        <button
-                            className="btn btn-primary"
-                            onClick={handleGuardar}
-                        >
-                            Continuar
-                        </button>
-                    ) : (
-                        <button
-                            className="btn btn-primary"
-                            onClick={handleGuardar}
-                        >
-                            Guardar y continuar
-                        </button>
-                    )
-                }
+                <button
+                    className="btn btn-primary"
+                    onClick={handleGuardar}
+                >
+                    Guardar y continuar
+                </button>
             </div>
         </div>
     )
