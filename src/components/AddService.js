@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from '../hooks/useForm'
 import { useUiContext } from '../context/UiContext';
 import { services } from '../helpers/services';
 import { useState } from 'react';
 import { useCarShopContext } from '../context/CarShopContext';
 import { addMinutesDate } from '../helpers/util';
+import Swal from 'sweetalert2';
 
 
 export const AddService = () => {
@@ -17,6 +18,24 @@ export const AddService = () => {
     );
     const [checkService, setCheckService] = useState([]);
     const [duration, setDuration] = useState();
+
+    useEffect(() => {
+        markOnload()
+    }, []);
+
+    const markOnload = () => {
+        if (carShop.order && carShop.order.maintenance.length > 0) {
+            const a = services.map((item, index) => {
+                return carShop.order.maintenance.filter(s => s === item.name ? true : false)
+            });
+            console.log('a: ' + a);
+            const b = checkedState.map((e, i) =>
+                (services[i].name.toString().indexOf(a[i])) ? !e : e
+            );
+            console.log('b: ' + b);
+            setCheckedState(b);
+        }
+    }
 
     const handleOnChange = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
@@ -43,21 +62,25 @@ export const AddService = () => {
     };
 
     const handleGuardar = () => {
-        let deliveryTime = new Date();
-        let endTime = addMinutesDate(duration);
-        dispatch({
-            type: 'addMaintenance',
-            payload: {
-                maintenance: checkService,
-                deliveryTime,
-                endTime,
-                duration: duration,
-            },
-        });
-        dispatchUi({
-            type: 'setNext',
-            payload: 4,
-        })
+        if (duration > 0) {
+            let deliveryTime = new Date();
+            let endTime = addMinutesDate(duration);
+            dispatch({
+                type: 'addMaintenance',
+                payload: {
+                    maintenance: checkService,
+                    deliveryTime,
+                    endTime,
+                    duration: duration,
+                },
+            });
+            dispatchUi({
+                type: 'setNext',
+                payload: 4,
+            })
+        } else {
+            Swal.fire('Debe seleccionar al menos un servicios a realizar');
+        }
     }
 
     const handleRegresar = () => {

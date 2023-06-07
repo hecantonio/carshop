@@ -14,7 +14,7 @@ export const initialState = {
         nivelTanque: '',
         observaciones: '',
     },
-    order: {        
+    order: {
         maintenance: [],
         deliveryTime: '',
         endTime: '',
@@ -48,6 +48,10 @@ export const carShopReducer = (state = initialState, action) => {
         case 'select':
             return {
                 ...state,
+            }
+        case 'delete':
+            return {
+                ...initialState,
             }
         default:
             return state;
