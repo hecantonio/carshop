@@ -68,7 +68,7 @@ export const AddCar = () => {
                 onInputChange={handleInputChange}
             />
             <Input
-                title="Nivel tanque gasolina:"
+                title="Nivel gasolina:"
                 name="nivelTanque"
                 value={nivelTanque}
                 onInputChange={handleInputChange}
