@@ -112,9 +112,6 @@ export const AddCar = () => {
                             onChange={handleInputChange}
                         /> </div>
                 </div>
-                {
-                    JSON.stringify(carShop, null, 10)
-                }
             </div>
             <div className="card-footer bg-transparent text-end">
                 <button

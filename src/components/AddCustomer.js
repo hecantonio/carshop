@@ -13,13 +13,6 @@ export const AddCustomer = () => {
 
     const { tipoIdentificacion, identificacion, nombre, email, telefono } = formValues;
 
-    const handleBuscar = (event) => {
-        dispatch({
-            type: 'search',
-            payload: event.target.value,
-        })
-    }
-
     const handleGuardar = () => {
         if (tipoIdentificacion !== '' && identificacion !== '' && nombre !== '' && email !== '' && telefono !== '') {
             dispatch({
@@ -105,9 +98,6 @@ export const AddCustomer = () => {
                         />
                     </div>
                 </div>
-                {
-                    JSON.stringify(carShop)
-                }
             </div>
             <div className="card-footer bg-transparent text-end">
                 <button

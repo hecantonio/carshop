@@ -78,11 +78,11 @@ export const Order = () => {
 
         <div className="col-6">
           <label htmlFor="fechaEntrega" className="col-form-label fw-bold">Fecha entrega:</label>
-          <input type="text" readOnly className="form-control-plaintext" id="fechaEntrega" value={deliveryTime} />
+          <input type="text" readOnly className="form-control-plaintext" id="fechaEntrega" value={deliveryTime.toLocaleString()} />
         </div>
         <div className="col-6">
           <label htmlFor="fechaFinalizacion" className="col-form-label fw-bold">Fecha finalización:</label>
-          <input type="text" readOnly className="form-control-plaintext" id="fechaFinalizacion" value={endTime} />
+          <input type="text" readOnly className="form-control-plaintext" id="fechaFinalizacion" value={endTime.toLocaleString()} />
         </div>
         <div className="col-6">
           <label htmlFor="duracion" className="col-form-label fw-bold">Duración:</label>

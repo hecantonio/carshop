@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useForm } from '../hooks/useForm'
+import React, { useCallback, useEffect } from 'react'
 import { useUiContext } from '../context/UiContext';
 import { services } from '../helpers/services';
 import { useState } from 'react';
@@ -19,23 +18,22 @@ export const AddService = () => {
     const [checkService, setCheckService] = useState([]);
     const [duration, setDuration] = useState();
 
+    const markOnload = useCallback(() => {
+        let arrServices = [];
+        if (carShop.order) {
+            const { maintenance, duration } = carShop.order;
+            services.map((item, index) => {
+                return arrServices[index] = maintenance.some(s => s === item.name)
+            });
+            setDuration(duration);
+            setCheckService(maintenance);
+            setCheckedState(arrServices);
+        }
+    }, [carShop]);
+
     useEffect(() => {
         markOnload()
-    }, []);
-
-    const markOnload = () => {
-        if (carShop.order && carShop.order.maintenance.length > 0) {
-            const a = services.map((item, index) => {
-                return carShop.order.maintenance.filter(s => s === item.name ? true : false)
-            });
-            console.log('a: ' + a);
-            const b = checkedState.map((e, i) =>
-                (services[i].name.toString().indexOf(a[i])) ? !e : e
-            );
-            console.log('b: ' + b);
-            setCheckedState(b);
-        }
-    }
+    }, [markOnload]);
 
     const handleOnChange = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
@@ -45,11 +43,11 @@ export const AddService = () => {
         setCheckedState(updatedCheckedState);
 
         let listService = [];
-        updatedCheckedState.map((e, i) => (e) && listService.push(services[i].name));
 
         const totalDuration = updatedCheckedState.reduce(
             (duration, currentState, index) => {
                 if (currentState === true) {
+                    listService.push(services[index].name)
                     return duration + services[index].duration;
                 }
                 return duration;
@@ -114,9 +112,6 @@ export const AddService = () => {
                             </div>
                         )
                     })
-                }
-                {
-                    JSON.stringify(carShop, null, 10)
                 }
             </div>
             <div className="card-footer bg-transparent text-end">

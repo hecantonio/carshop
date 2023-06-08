@@ -4,11 +4,9 @@ import { AppRouter } from './router/AppRouter';
 function App() {
 
   return (
-    <div className="container">
-      <UiAppContext>
-        <AppRouter />
-      </UiAppContext>
-    </div>
+    <UiAppContext>
+      <AppRouter />
+    </UiAppContext>
   );
 }
 
