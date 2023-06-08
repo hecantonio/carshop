@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useCarShopContext } from '../context/CarShopContext';
 import { addMinutesDate } from '../helpers/util';
 import Swal from 'sweetalert2';
+import { Card } from '../components/Card';
 
 
 export const AddService = () => {
@@ -89,45 +90,30 @@ export const AddService = () => {
     }
 
     return (
-        <div className="card">
-            <div className="card-header fs-4 fw-bold">
-                Selección de servicios
-            </div>
-            <div className="card-body">
-                {
-                    services.map(({ key, name }, index) => {
-                        return (
-                            <div className="form-check" key={index}>
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id={`custom-checkbox-${index}`}
-                                    name={key}
-                                    value={key}
-                                    checked={checkedState[index]}
-                                    onChange={() => handleOnChange(index)} />
-                                <label className="form-check-label" htmlFor={`custom-checkbox-${index}`}>
-                                    {name}
-                                </label>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div className="card-footer bg-transparent text-end">
-                <button
-                    className="btn btn-secondary me-2"
-                    onClick={handleRegresar}
-                >
-                    Atrás
-                </button>
-                <button
-                    className="btn btn-primary"
-                    onClick={handleGuardar}
-                >
-                    Continuar
-                </button>
-            </div>
-        </div >
+        <Card
+            title="Selección de servicios"
+            onSubmit={handleGuardar}
+            onRegresar={handleRegresar}
+        >
+            {
+                services.map(({ key, name }, index) => {
+                    return (
+                        <div className="form-check" key={index}>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`custom-checkbox-${index}`}
+                                name={key}
+                                value={key}
+                                checked={checkedState[index]}
+                                onChange={() => handleOnChange(index)} />
+                            <label className="form-check-label" htmlFor={`custom-checkbox-${index}`}>
+                                {name}
+                            </label>
+                        </div>
+                    )
+                })
+            }
+        </Card>
     )
 }

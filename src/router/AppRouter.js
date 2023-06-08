@@ -1,11 +1,11 @@
 import React from 'react'
 import { useUiContext } from '../context/UiContext';
-import { AddCar } from '../components/AddCar';
-import { AddService } from '../components/AddService';
+import { AddCar } from '../screens/AddCar';
+import { AddService } from '../screens/AddService';
 import { Header } from '../components/Header';
 import { CarShopAppContext } from '../context/CarShopContext';
-import { AddCustomer } from '../components/AddCustomer';
-import { Order } from '../components/Order.js';
+import { AddCustomer } from '../screens/AddCustomer';
+import { Order } from '../screens/Order.js';
 
 export const AppRouter = () => {
 
