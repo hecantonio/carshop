@@ -1,7 +1,7 @@
 
 export const uiInitialState = {
     loading: false,
-    msgError: null,
+    darkMode: false,
     next: 1
 }
 
@@ -9,20 +9,15 @@ export const uiInitialState = {
 export const uiReducer = (state = uiInitialState, action) => {
 
     switch (action.type) {
-        case 'setError':
+        case 'setDarkMode':
             return {
                 ...state,
-                msgError: action.payload
+                darkMode: action.payload
             }
         case 'setNext':
             return {
                 ...state,
                 next: action.payload
-            }
-        case 'removeError':
-            return {
-                ...state,
-                msgError: null
             }
         case 'startLoading':
             return {

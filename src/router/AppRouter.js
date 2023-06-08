@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUiContext } from '../context/UiContext';
 import { AddCar } from '../screens/AddCar';
 import { AddService } from '../screens/AddService';
@@ -10,6 +10,11 @@ import { Order } from '../screens/Order.js';
 export const AppRouter = () => {
 
     const { ui } = useUiContext();
+
+    useEffect(() => {        
+        let mode = (ui.darkMode) ? 'dark' : 'light';
+        document.body.setAttribute('data-bs-theme', mode);
+    }, [ui.darkMode])
 
     return (
         <div className="my-2">
