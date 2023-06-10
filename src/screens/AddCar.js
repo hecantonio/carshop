@@ -4,6 +4,7 @@ import { useUiContext } from '../context/UiContext';
 import { useCarShopContext } from '../context/CarShopContext';
 import { Card } from '../components/Card';
 import { Input } from '../components/Input';
+import Swal from 'sweetalert2';
 
 
 export const AddCar = () => {
@@ -18,15 +19,20 @@ export const AddCar = () => {
     const { placa, marca, modelo, nivelTanque, observaciones } = formValues;
 
     const handleGuardar = () => {
-        dispatch({
-            type: 'addVehicle',
-            payload: formValues,
-        });
-        reset();
-        dispatchUi({
-            type: 'setNext',
-            payload: 3,
-        })
+        if (placa !== '' && marca !== '' && modelo !== '' && nivelTanque !== '' && observaciones !== '') {
+            dispatch({
+                type: 'addVehicle',
+                payload: formValues,
+            });
+            reset();
+            dispatchUi({
+                type: 'setNext',
+                payload: 3,
+            })
+
+        } else {
+            Swal.fire('Todos los campos son obligatorios');
+        }
     }
 
     const handleRegresar = () => {

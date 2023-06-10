@@ -36,8 +36,27 @@ export const Order = () => {
       onFinish={handleFinalizar}
       onRegresar={handleRegresar}
     >
-      <div className='row g-3'>
-        <h5>Datos del cliente</h5>
+      <div className='row'>
+
+        <h6 className="mt-2 fw-bold">DATOS GENERALES:</h6>
+        <hr />
+        <PlainText
+          label="fechaRecepcion"
+          title="Fecha recepción:"
+          value={deliveryTime.toLocaleString()}
+        />
+        <PlainText
+          label="fechaEntrega"
+          title="Fecha entrega:"
+          value={endTime.toLocaleString()}
+        />
+        <PlainText
+          label="duracion"
+          title="Duración:"
+          value={duration + ' min.'}
+        />
+
+        <h6 className="mt-2 fw-bold">DATOS CLIENTE:</h6>
         <hr />
         <PlainText
           label="identificacion"
@@ -60,7 +79,7 @@ export const Order = () => {
           value={email}
         />
 
-        <h5>Datos del vehiculo</h5>
+        <h6 className="mt-2 fw-bold">DATOS VEHICULO:</h6>
         <hr />
         <PlainText
           label="placa"
@@ -89,24 +108,7 @@ export const Order = () => {
           value={observaciones}
         />
 
-        <PlainText
-          label="fechaEntrega"
-          title="Fecha entrega:"
-          value={deliveryTime.toLocaleString()}
-        />
-        <PlainText
-          label="fechaFinalizacion"
-          title="Fecha finalización:"
-          value={endTime.toLocaleString()}
-        />
-        <PlainText
-          label="duracion"
-          title="Duración:"
-          value={duration + ' min.'}
-        />
-
-
-        <h5>Servicios a realizar</h5>
+        <h6 className="mt-2 fw-bold">ACTIVIDADES A REALIZARSE:</h6>
         <hr />
         {
           maintenance.map((e, i) =>

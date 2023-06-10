@@ -78,7 +78,7 @@ export const AddService = () => {
                 payload: 4,
             })
         } else {
-            Swal.fire('Debe seleccionar al menos un servicios a realizar');
+            Swal.fire('Debe seleccionar al menos un servicio a realizar');
         }
     }
 

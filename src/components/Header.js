@@ -1,6 +1,6 @@
 import React from 'react'
 import { useUiContext } from '../context/UiContext';
-import { ButtonPrimary } from './Buttons';
+import { ButtonIcon } from './Buttons';
 
 export const Header = () => {
 
@@ -8,11 +8,15 @@ export const Header = () => {
 
   return (
     <header>
-      <h1 className="text-center">Taller Automotriz "El Fullstack"</h1>
-      <ButtonPrimary 
-        title={` Modo oscuro: ${ui.darkMode}`}
-        onSubmit={() => dispatch({ type: 'setDarkMode', payload: !ui.darkMode})}
-      />
+      <div className="d-flex p-2 justify-content-center">
+        <h1>Taller Automotriz "Bootcamp Espol"</h1>
+        <div className="d-flex justify-content-end">
+        <ButtonIcon
+            modeDark={ui.darkMode}
+            onSubmit={() => dispatch({ type: 'setDarkMode', payload: !ui.darkMode })}
+          />
+        </div>        
+      </div>
     </header>
   )
 }
