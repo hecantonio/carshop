@@ -48,7 +48,7 @@ export const AddCustomer = () => {
                 </div>
             </div>
             <Input
-                title="identificación:"
+                title="Identificación:"
                 name="identificacion"
                 value={identificacion}
                 onInputChange={handleInputChange}
