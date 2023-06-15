@@ -24,11 +24,13 @@ El proceso de recepción de un auto consiste de los siguientes pasos:
 ### **NOTA:** Se agrega una opción para cambiar entre tema claro y oscuro en la aplicación.
 
 # **DESARROLLO**
-* Al descargar el proyecto se ejecutar el comando `npm install`.
-* Se utilizó la libreria `sweetalert2` para mostrar los mensajes en la aplicación.
-* Se utilizó `bootstrap` para el diseño del CSS de las pantallas.
+* Descargar el proyecto con el comando `git clone https://github.com/hecantonio/carshop.git`
+* Descargar las dependencias del proyecto ejecutando el comando `npm install`.
 * Para correr el proyecto utilizar el comando `npm run start`.
 
+## **Datos relevantes**
+* Se utilizó la libreria `sweetalert2` para mostrar los mensajes en la aplicación.
+* Se utilizó `bootstrap` para el diseño del CSS de las pantallas.
 
 # **DESPLIEGUE**
 Los pasos para desplegar la aplicación en AWS S3 son las siguientes:
