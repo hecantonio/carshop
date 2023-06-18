@@ -17,7 +17,7 @@ export const AppRouter = () => {
     }, [ui.darkMode])
 
     return (
-        <div className="my-2">
+        <div className="">
             <Header />
             <main className="flex-shrink-0">
                 <div className="container my-4">
