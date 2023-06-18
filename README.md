@@ -34,7 +34,10 @@ El proceso de recepción de un auto consiste de los siguientes pasos:
 
 # **DESPLIEGUE**
 Los pasos para desplegar la aplicación en AWS S3 son las siguientes:
-1. Ejecutar el comando `npm run build`
-2. Ir al sitio de [AWS](https://aws.amazon.com/es/) 
-3. Buscar el servicio S3
+1. Ejecutar el comando `npm run build`.
+2. Ir al sitio de [AWS](https://aws.amazon.com/es/).
+3. Buscar el servicio S3.
+4. Crear un bucket con un nombre que tenga relación a la aplicación.
+6. En la pestaña de "Propiedades" habilitar **Static website hosting**.
+5. En la pestaña de "Permisos" habilitar el acceso público del bucket.
 
